@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "displayName": "Unity Input To Observable",
     "description": "Transform unity input system into readable observables",
-    "unity": "6000.2.9",
+    "unity": "6000.2",
     "keywords": [
         "ui",
         "uikit"
