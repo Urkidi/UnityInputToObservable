@@ -1,0 +1,19 @@
+{
+    "name": "com.urkidi.unityinputtoobservable",
+    "version": "1.0.0",
+    "displayName": "Unity Input To Observable",
+    "description": "Transform unity input system into readable observables",
+    "unity": "6000.2.9",
+    "keywords": [
+        "ui",
+        "uikit"
+    ],
+    "dependencies": {
+        "com.unity.textmeshpro": "3.0.6",
+        "com.unity.inputsystem": "1.14.2"
+    },
+    "author": {
+        "name": "Unai Urkidi",
+        "url": "https://github.com/urkidi"
+    }
+}
