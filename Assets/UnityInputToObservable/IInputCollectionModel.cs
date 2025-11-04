@@ -1,9 +1,11 @@
-﻿using UnityInputToObservable.Enums;
+﻿using System;
 
 namespace UnityInputToObservable
 {
-    public interface IInputCollectionModel
+    public interface IInputCollectionModel<TActionMap, in TActionType> 
+        where TActionMap : struct
+        where TActionType : struct
     {
-        IInputModel this[ActionMapType type] { get; }
+        IInputModel<TActionMap, TActionType> this[TActionMap type] { get; }
     }
 }

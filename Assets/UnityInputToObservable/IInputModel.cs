@@ -1,16 +1,17 @@
 ﻿using R3;
 using UnityEngine.InputSystem;
-using UnityInputToObservable.Enums;
 
 namespace UnityInputToObservable
 {
-    public interface IInputModel
+    public interface IInputModel<out TActionMap, in TActionType>
+        where TActionType : struct
+        where TActionMap : struct
     {
-        ActionMapType MapType { get; }
-        void SetActionEnabled(ActionType actionType, bool enabled);
-        Observable<InputAction.CallbackContext> GetOnActionStarted(ActionType type);
-        Observable<InputAction.CallbackContext> GetOnActionCancelled(ActionType type);
-        Observable<InputAction.CallbackContext> GetOnActionPerformed(ActionType type);
+        TActionMap MapType { get; }
+        void SetActionEnabled(TActionType actionType, bool enabled);
+        Observable<InputAction.CallbackContext> GetOnActionStarted(TActionType type);
+        Observable<InputAction.CallbackContext> GetOnActionCancelled(TActionType type);
+        Observable<InputAction.CallbackContext> GetOnActionPerformed(TActionType type);
 
     }
 }

@@ -1,5 +1,4 @@
 using UnityInputToObservable.Configs;
-using UnityInputToObservable.Enums;
 
 namespace UnityInputToObservable.DependencyInjection
 {
@@ -11,10 +10,10 @@ namespace UnityInputToObservable.DependencyInjection
         {
             _config = config;
         }
-        
-        public IInputModel Create(ActionMapType mapType)
+
+        public IInputModel<TActionMapType, TActionType> Create<TActionMapType, TActionType>(TActionMapType mapType) where TActionMapType : struct where TActionType : struct
         {
-            return new InputModel(mapType, _config);
+            return new InputModel<TActionMapType, TActionType>(mapType, _config);
         }
     }
 }

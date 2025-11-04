@@ -1,20 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityInputToObservable.Enums;
 
 namespace UnityInputToObservable
 {
-    public class InputCollectionModel : IInputCollectionModel
+    public class InputCollectionModel<TActionMap, TActionType> : IInputCollectionModel<TActionMap, TActionType>
+        where TActionMap : struct
+        where TActionType : struct
     {
-        private readonly Dictionary<ActionMapType, IInputModel> _inputModels;
+        private readonly Dictionary<TActionMap, IInputModel<TActionMap,TActionType>> _inputModels;
         
-        public IInputModel this[ActionMapType type] => _inputModels[type];
+        public IInputModel<TActionMap,TActionType> this[TActionMap type] => _inputModels[type];
 
          public InputCollectionModel(IInputModelFactory inputModelFactory)
          {
-             _inputModels = ((ActionMapType[])Enum.GetValues(typeof (ActionMapType)))
-                 .ToDictionary(key => key, inputModelFactory.Create);
+             _inputModels = ((TActionMap[])Enum.GetValues(typeof (TActionMap)))
+                 .ToDictionary(key => key, inputModelFactory.Create<TActionMap,TActionType>);
          }
     }
 }

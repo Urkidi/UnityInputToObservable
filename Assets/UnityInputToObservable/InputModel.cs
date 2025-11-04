@@ -1,35 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using R3;
 using UnityEngine.InputSystem;
 using UnityInputToObservable.Configs;
-using UnityInputToObservable.Enums;
 using UnityInputToObservable.Utils;
 
 namespace UnityInputToObservable
 {
     public interface IInputModelFactory
     {
-        public IInputModel Create(ActionMapType mapType);
+        public IInputModel<TActionMapType, TActionType> Create<TActionMapType, TActionType>(TActionMapType mapType) 
+            where TActionMapType : struct
+            where TActionType : struct;
     }
     
-    public class InputModel : IInputModel
+    public class InputModel<TActionMapType, TActionType> : IInputModel<TActionMapType, TActionType> 
+        where TActionMapType : struct
+        where TActionType : struct
     {
-        private readonly Dictionary<string, ActionType> _dictionary;
+        private readonly Dictionary<string, TActionType> _dictionary;
     
-        public ActionMapType MapType { get; }
+        public TActionMapType MapType { get; }
     
         private readonly InputActionMap _mapAsset;
     
-        private Dictionary<ActionType, Observable<InputAction.CallbackContext>> _actionStartedDictionary = new();
-        private Dictionary<ActionType, Observable<InputAction.CallbackContext>> _actionCancelledDictionary = new();
-        private Dictionary<ActionType, Observable<InputAction.CallbackContext>> _actionPerformedDictionary = new();
+        private readonly Dictionary<TActionType, Observable<InputAction.CallbackContext>> _actionStartedDictionary = new();
+        private readonly Dictionary<TActionType, Observable<InputAction.CallbackContext>> _actionCancelledDictionary = new();
+        private readonly Dictionary<TActionType, Observable<InputAction.CallbackContext>> _actionPerformedDictionary = new();
     
-        public InputModel(ActionMapType mapType, IPlayerInputConfig config)
+        public InputModel(TActionMapType mapType, IPlayerInputConfig config)
         {
-            _dictionary = ((ActionType[])System.Enum.GetValues(typeof(ActionType)))
+            _dictionary = ((TActionType[])System.Enum.GetValues(typeof(TActionType)))
                 .Where(e=> e.GetStringRepresentation()!= null)
                 .ToDictionary(e => e.GetStringRepresentation());
             MapType = mapType;
@@ -53,7 +55,7 @@ namespace UnityInputToObservable
         }
     
         private Observable<InputAction.CallbackContext> CreateSubject(ActionSubjectType subjectType,
-            ActionType actionType)
+            TActionType actionType)
         {
             switch (subjectType)
             {
@@ -68,7 +70,7 @@ namespace UnityInputToObservable
             }
         }
     
-        public void SetActionEnabled(ActionType actionType, bool enabled)
+        public void SetActionEnabled(TActionType actionType, bool enabled)
         {
             if (enabled)
                 _mapAsset.FindAction(actionType.GetStringRepresentation()).Enable();
@@ -76,17 +78,17 @@ namespace UnityInputToObservable
                 _mapAsset.FindAction(actionType.GetStringRepresentation()).Disable();
         }
     
-        public Observable<InputAction.CallbackContext> GetOnActionStarted(ActionType type)
+        public Observable<InputAction.CallbackContext> GetOnActionStarted(TActionType type)
         {
             return _actionStartedDictionary[type];
         }
     
-        public Observable<InputAction.CallbackContext> GetOnActionCancelled(ActionType type)
+        public Observable<InputAction.CallbackContext> GetOnActionCancelled(TActionType type)
         {
             return _actionCancelledDictionary[type];
         }
     
-        public Observable<InputAction.CallbackContext> GetOnActionPerformed(ActionType type)
+        public Observable<InputAction.CallbackContext> GetOnActionPerformed(TActionType type)
         {
             return _actionPerformedDictionary[type];
         }

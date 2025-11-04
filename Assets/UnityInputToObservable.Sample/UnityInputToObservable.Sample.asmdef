@@ -1,0 +1,18 @@
+{
+    "name": "UnityInputToObservable.Sample",
+    "rootNamespace": "",
+    "references": [
+        "GUID:76845e3cc09a9684a9177447c430bbb8",
+        "GUID:063a880f7a8dcda4395ab8c79a6b0b81",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
