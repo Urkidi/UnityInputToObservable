@@ -45,3 +45,9 @@ services.AddUnityInputToObservable<PlayerType, ActionType>();
 ```
 
 You should also to the DI the ```IPlayerInputConfig```
+
+
+## Extras
+
+ - Dependency injection subpackage `https://github.com/Urkidi/UnityInputToObservable.git?path=/Assets/UnityInputToObservable.DependencyInjection`
+ - Sample subpackage `https://github.com/Urkidi/UnityInputToObservable.git?path=/Assets/UnityInputToObservable.Sample`
