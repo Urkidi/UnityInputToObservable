@@ -5,6 +5,7 @@ Unity Input To Observable Dependency Injection support
 ## Requirements
 - Unity 6000.2 or later
 - [R3](https://github.com/Cysharp/R3) (must be installed manually)
+- Microsoft.Extensions.DependencyInjection.Abstractions (must be installed Via NuGet  for Unity)
 - UnityInputToObservable package
 
 ---
