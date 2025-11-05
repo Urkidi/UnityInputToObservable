@@ -1,6 +1,10 @@
-Unity Input To Observable
+# Unity Input To Observable
 
 Transforms Unity's Input System into observable streams using [R3](https://github.com/Cysharp/R3).
+- Package `https://github.com/Urkidi/UnityInputToObservable.git?path=/Assets/UnityInputToObservable/`
+- Dependency injection subpackage `https://github.com/Urkidi/UnityInputToObservable.git?path=/Assets/UnityInputToObservable.DependencyInjection`
+- Sample subpackage `https://github.com/Urkidi/UnityInputToObservable.git?path=/Assets/UnityInputToObservable.Sample`
+
 
 ---
 
@@ -20,11 +24,12 @@ Transforms Unity's Input System into observable streams using [R3](https://githu
 
 
 3. **Create two enums** in your project:
-   4. The enums string representation must match the InputAction.assets map and action entries.
+
 ```csharp
-public enum PlayerType 
+public enum ActionMapType 
 {
-    [StringRepresentation("Player")]Player
+    [StringRepresentation("Player")]
+    Player
 }
 
 public enum ActionType 
@@ -35,19 +40,21 @@ public enum ActionType
     Action
 }
 ```
-4. **Create a InputActions.asset**
-   5. Populate the asset with your actions.
-5. **Create a PlayerInputConfig** and add the InputActions.asset to it..
+4. The enums string representation must match the InputAction.assets map and action entries.
+5. **Create a InputActions.asset**.
+6. Populate the asset with your actions.
+7. **Create a PlayerInputConfig** and add the InputActions.asset to it..
 
-Install into DI:
+### Installing into DI:
 ```csharp
-services.AddUnityInputToObservable<PlayerType, ActionType>();
+services.AddUnityInputToObservable<ActionMapType, ActionType>();
 ```
 
-You should also to the DI the ```IPlayerInputConfig```
+Add to the DI the ```IPlayerInputConfig``` implementation.
+
+## Usage
+1. Access IInputCollectionModel where needed.
+2. From the collection model access the specific IInputModel by providing the right ActionMapType.
+3. Once accessed the model, subscribe to the desired input event.
 
 
-## Extras
-
- - Dependency injection subpackage `https://github.com/Urkidi/UnityInputToObservable.git?path=/Assets/UnityInputToObservable.DependencyInjection`
- - Sample subpackage `https://github.com/Urkidi/UnityInputToObservable.git?path=/Assets/UnityInputToObservable.Sample`
