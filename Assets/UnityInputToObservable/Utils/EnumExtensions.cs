@@ -4,9 +4,9 @@ namespace UnityInputToObservable.Utils
     {
         public static string GetStringRepresentation<T>(this T value) where T : struct
         {
-            StringRepresentationAttribute[] attributes = (StringRepresentationAttribute[])value.GetType()
+            InputItemStringRepresentationAttribute[] attributes = (InputItemStringRepresentationAttribute[])value.GetType()
                 .GetField(value.ToString())
-                .GetCustomAttributes(typeof(StringRepresentationAttribute), false);
+                .GetCustomAttributes(typeof(InputItemStringRepresentationAttribute), false);
             return attributes.Length > 0? attributes[0].Representation : null;
         }
     }

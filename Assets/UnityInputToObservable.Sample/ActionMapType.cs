@@ -4,7 +4,7 @@ namespace UnityInputToObservable.Sample
 {
     public enum ActionMapType
     {
-        [StringRepresentation("Player")]
+        [InputItemStringRepresentation("Player")]
         Player
     }
 }

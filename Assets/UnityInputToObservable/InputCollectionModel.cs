@@ -4,6 +4,13 @@ using System.Linq;
 
 namespace UnityInputToObservable
 {
+    /// <summary>
+    /// Creates an input model per action map.
+    /// Even if the action map has no representation the model is created.
+    /// The created model will throw if the action map is not supported.
+    /// </summary>
+    /// <typeparam name="TActionMap"></typeparam>
+    /// <typeparam name="TActionType"></typeparam>
     public class InputCollectionModel<TActionMap, TActionType> : IInputCollectionModel<TActionMap, TActionType>
         where TActionMap : struct
         where TActionType : struct

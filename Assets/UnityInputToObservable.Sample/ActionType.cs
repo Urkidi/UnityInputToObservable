@@ -4,9 +4,9 @@ namespace UnityInputToObservable.Sample
 {
     public enum ActionType
     {
-        [StringRepresentation("Move")]
+        [InputItemStringRepresentation("Move")]
         Move,
-        [StringRepresentation("Action")]
+        [InputItemStringRepresentation("Action")]
         Action
     }
 }

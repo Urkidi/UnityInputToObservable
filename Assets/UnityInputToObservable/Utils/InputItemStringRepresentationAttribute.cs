@@ -1,10 +1,10 @@
 namespace UnityInputToObservable.Utils
 {
-    public class StringRepresentationAttribute : System.Attribute
+    public class InputItemStringRepresentationAttribute : System.Attribute
     {
         public string Representation { get; }
 
-        public StringRepresentationAttribute(string representation)
+        public InputItemStringRepresentationAttribute(string representation)
         {
             Representation = representation;
         }

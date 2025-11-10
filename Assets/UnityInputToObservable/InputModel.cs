@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using R3;
+using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityInputToObservable.Configs;
 using UnityInputToObservable.Utils;
@@ -34,17 +36,40 @@ namespace UnityInputToObservable
             _dictionary = ((TActionType[])System.Enum.GetValues(typeof(TActionType)))
                 .Where(e=> e.GetStringRepresentation()!= null)
                 .ToDictionary(e => e.GetStringRepresentation());
+            
             MapType = mapType;
-            _mapAsset = config.PlayerInputActionAsset.FindActionMap(MapType.GetStringRepresentation());
-    
-            SetUpActions();
+            
+            if(config.PlayerInputActionAsset == null)
+                throw new ArgumentNullException(nameof(config.PlayerInputActionAsset));
+
+            try
+            {
+                _mapAsset = config.PlayerInputActionAsset.FindActionMap(MapType.GetStringRepresentation(), true);
+            }
+            catch (ArgumentNullException)
+            {
+                throw new InvalidEnumArgumentException(
+                    $"The StringRepresentation of the enum is not correct.");
+            }
+            catch (ArgumentException)
+            {
+                throw new ArgumentException(
+                    $"Action map {MapType} not found in {config.PlayerInputActionAsset.name}. You are be missing an entry for the action map");
+            }
+
+            if (_mapAsset != null)
+                SetUpActions();
+
         }
     
         private void SetUpActions()
         {
             var actions = _mapAsset.actions
                 .Where(action => _dictionary.ContainsKey(action.name))
-                .Select(action => _dictionary[action.name]);
+                .Select(action => _dictionary[action.name]).ToArray();
+            
+            if (!actions.Any())
+                Debug.LogWarning("No actions found for map");
 
             foreach (var action in actions)
             {
