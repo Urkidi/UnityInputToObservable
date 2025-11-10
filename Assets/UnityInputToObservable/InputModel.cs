@@ -8,11 +8,11 @@ using UnityInputToObservable.Utils;
 
 namespace UnityInputToObservable
 {
-    public interface IInputModelFactory
+    public interface IInputModelFactory<TActionMapType, in TActionType>
+        where TActionMapType : struct
+        where TActionType : struct
     {
-        public IInputModel<TActionMapType, TActionType> Create<TActionMapType, TActionType>(TActionMapType mapType) 
-            where TActionMapType : struct
-            where TActionType : struct;
+        public IInputModel<TActionMapType, TActionType> Create(TActionMapType mapType);
     }
     
     public class InputModel<TActionMapType, TActionType> : IInputModel<TActionMapType, TActionType> 

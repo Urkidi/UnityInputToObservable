@@ -2,7 +2,8 @@ using UnityInputToObservable.Configs;
 
 namespace UnityInputToObservable.DependencyInjection
 {
-    public class InputModelFactory : IInputModelFactory
+    public class InputModelFactory<TActionMapType, TActionType> : IInputModelFactory<TActionMapType, TActionType>
+        where TActionMapType : struct where TActionType : struct
     {
         private readonly IPlayerInputConfig _config;
 
@@ -11,7 +12,7 @@ namespace UnityInputToObservable.DependencyInjection
             _config = config;
         }
 
-        public IInputModel<TActionMapType, TActionType> Create<TActionMapType, TActionType>(TActionMapType mapType) where TActionMapType : struct where TActionType : struct
+        public IInputModel<TActionMapType, TActionType> Create(TActionMapType mapType) 
         {
             return new InputModel<TActionMapType, TActionType>(mapType, _config);
         }

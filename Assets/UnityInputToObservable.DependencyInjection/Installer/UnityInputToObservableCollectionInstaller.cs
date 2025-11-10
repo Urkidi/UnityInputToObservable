@@ -7,8 +7,8 @@ namespace UnityInputToObservable.DependencyInjection.Installer
     {
         public static IServiceCollection InstallUnityInputToObservablePackage<TActionMap, TActionType>(this IServiceCollection services) where TActionMap : struct where TActionType : struct
         {
-            services.AddSingleton<IInputModelFactory>(provider =>
-                new InputModelFactory((IPlayerInputConfig)provider.GetService(typeof(IPlayerInputConfig))));
+            services.AddSingleton<IInputModelFactory<TActionMap, TActionType>>(provider =>
+                new InputModelFactory<TActionMap, TActionType>((IPlayerInputConfig)provider.GetService(typeof(IPlayerInputConfig))));
             
             services.AddSingleton<IInputCollectionModel<TActionMap, TActionType>, InputCollectionModel<TActionMap, TActionType>>();
             
