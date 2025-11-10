@@ -12,10 +12,10 @@ namespace UnityInputToObservable
         
         public IInputModel<TActionMap,TActionType> this[TActionMap type] => _inputModels[type];
 
-         public InputCollectionModel(IInputModelFactory inputModelFactory)
+         public InputCollectionModel(IInputModelFactory<TActionMap, TActionType> inputModelFactory)
          {
              _inputModels = ((TActionMap[])Enum.GetValues(typeof (TActionMap)))
-                 .ToDictionary(key => key, inputModelFactory.Create<TActionMap,TActionType>);
+                 .ToDictionary(key => key, inputModelFactory.Create);
          }
     }
 }
